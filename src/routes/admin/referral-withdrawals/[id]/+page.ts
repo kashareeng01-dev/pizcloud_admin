@@ -4,7 +4,7 @@ import { createApi } from '$lib/api';
 
 export const load: PageLoad = async ({ params, fetch }) => {
     const api = createApi(fetch);
-    const detail = await api.getReferralWithdrawalDetail(params.id);
+    const detail = await api.geAdminWithdrawalDetail(params.id);
 
     return { detail };
 };

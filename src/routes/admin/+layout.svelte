@@ -3,6 +3,6 @@
     export let data;
 </script>
 
-<AdminLayout title="Referral Program" me={data.me}>
+<AdminLayout title="Piz Cloud" me={data.me}>
     <slot />
 </AdminLayout>

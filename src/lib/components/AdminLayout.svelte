@@ -38,7 +38,7 @@
                 href="/admin/referral-withdrawals"
                 class="block rounded-lg px-3 py-2 hover:bg-slate-800"
             >
-                Referral Withdrawals
+                Withdrawal Request
             </a>
         </nav>
         <div

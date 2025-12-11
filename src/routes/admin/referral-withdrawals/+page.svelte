@@ -1,4 +1,4 @@
-<!-- src/routes/admin/referral-withdrawals/+page.svelte  // New -->
+<!-- src/routes/admin/referral-withdrawals/+page.svelte  -->
 <script lang="ts">
     import type { PageData } from "./$types";
     import Card from "$lib/components/Card.svelte";
@@ -11,10 +11,19 @@
 
     export let data: PageData;
 
-    const withdrawals: ReferralWithdrawalAdminListResponse = data.withdrawals;
-    const { page, limit, statusParam, search } = data;
+    let withdrawals: ReferralWithdrawalAdminListResponse = data.withdrawals;
+    let page: number = data.page;
+    let limit: number = data.limit;
+    let statusParam: string | undefined = data.statusParam;
+    let search: string | undefined = data.search;
+    let items: ReferralWithdrawalAdminItem[] = data.withdrawals.items ?? [];
 
-    const items: ReferralWithdrawalAdminItem[] = withdrawals.items ?? [];
+    $: withdrawals = data.withdrawals;
+    $: page = data.page;
+    $: limit = data.limit;
+    $: statusParam = data.statusParam;
+    $: search = data.search;
+    $: items = (withdrawals.items ?? []) as ReferralWithdrawalAdminItem[];
 
     function formatDateTime(value: unknown) {
         if (!value) return "-";
@@ -48,10 +57,13 @@
         class="flex flex-col md:flex-row md:items-center md:justify-between gap-3"
     >
         <h2 class="text-lg font-semibold text-slate-800">
-            Referral Withdrawal Requests
+            Withdrawal Request Information
         </h2>
 
-        <form class="flex flex-col md:flex-row gap-2 items-stretch" method="GET">
+        <form
+            class="flex flex-col md:flex-row gap-2 items-stretch"
+            method="GET"
+        >
             <input
                 class="px-3 py-2 rounded-lg border border-slate-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-slate-500"
                 type="text"
@@ -85,7 +97,9 @@
             <p class="text-2xl font-semibold text-amber-700">
                 ${withdrawals.summary.totalPending.toFixed(2)}
             </p>
-            <p class="text-xs text-slate-500 mt-1">pending + waiting approval</p>
+            <p class="text-xs text-slate-500 mt-1">
+                pending + waiting approval
+            </p>
         </Card>
 
         <Card title="Approved (Not Paid)">
@@ -134,7 +148,8 @@
                     </div>
                 {:else if col.key === "amount"}
                     <span class="text-sm font-semibold text-slate-900">
-                        {item.currency} {item.amount.toFixed(2)}
+                        {item.currency}
+                        {item.amount.toFixed(2)}
                     </span>
                 {:else if col.key === "method"}
                     <span class="text-xs uppercase">
@@ -167,10 +182,6 @@
             </svelte:fragment>
         </Table>
 
-        <Pagination
-            {page}
-            {limit}
-            total={withdrawals.pagination.total}
-        />
+        <Pagination {page} {limit} total={withdrawals.pagination.total} />
     </Card>
 </div>

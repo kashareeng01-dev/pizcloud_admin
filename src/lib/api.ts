@@ -103,7 +103,7 @@ export function createApi(fetchFn: typeof fetch) {
             });
         },
 
-        getReferralWithdrawals(params: {
+        getAdminWithdrawals(params: {
             page?: number;
             limit?: number;
             status?: string;
@@ -112,7 +112,7 @@ export function createApi(fetchFn: typeof fetch) {
             const q = new URLSearchParams();
             if (params.page) q.set('page', String(params.page));
             if (params.limit) q.set('limit', String(params.limit));
-            if (params.status) q.set('status', params.status);
+            if (params.status && params.status !== 'all') q.set('status', params.status);
             if (params.search) q.set('search', params.search);
 
             const qs = q.toString();
@@ -121,14 +121,12 @@ export function createApi(fetchFn: typeof fetch) {
             );
         },
 
-        // New
-        getReferralWithdrawalDetail(id: string) {
+        geAdminWithdrawalDetail(id: string) {
             return request<ReferralWithdrawalDetailResponse>(
                 `/referral/admin/withdrawals/${id}`
             );
         },
 
-        // New
         updateReferralWithdrawalStatus(
             id: string,
             payload: {
