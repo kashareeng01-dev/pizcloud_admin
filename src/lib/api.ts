@@ -59,13 +59,13 @@ export function createApi(fetchFn: typeof fetch) {
 
             const qs = q.toString();
             return request<AdminOverviewResponse>(
-                `/referral/admin/overview${qs ? `?${qs}` : ''}`
+                `/admin/referral/overview${qs ? `?${qs}` : ''}`
             );
         },
 
         getReferrerDetail(id: string) {
             return request<AdminReferrerDetailResponse>(
-                `/referral/admin/referrers/${id}`
+                `/admin/referral/referrers/${id}`
             );
         },
 
@@ -77,7 +77,7 @@ export function createApi(fetchFn: typeof fetch) {
             note?: string;
             status?: 'pending' | 'paid' | 'cancelled';
         }) {
-            return request('/referral/admin/commissions/manual', {
+            return request('/admin/referral/commissions/manual', {
                 method: 'POST',
                 body: JSON.stringify(payload)
             });
@@ -91,14 +91,14 @@ export function createApi(fetchFn: typeof fetch) {
                 status?: 'pending' | 'paid' | 'cancelled';
             }
         ) {
-            return request(`/referral/admin/commissions/${id}`, {
+            return request(`/admin/referral/commissions/${id}`, {
                 method: 'PATCH',
                 body: JSON.stringify(payload)
             });
         },
 
         deleteManualCommission(id: string) {
-            return request(`/referral/admin/commissions/${id}`, {
+            return request(`/admin/referral/commissions/${id}`, {
                 method: 'DELETE'
             });
         },
@@ -117,13 +117,13 @@ export function createApi(fetchFn: typeof fetch) {
 
             const qs = q.toString();
             return request<ReferralWithdrawalAdminListResponse>(
-                `/referral/admin/withdrawals${qs ? `?${qs}` : ''}`
+                `/admin/referral/withdrawals${qs ? `?${qs}` : ''}`
             );
         },
 
         geAdminWithdrawalDetail(id: string) {
             return request<ReferralWithdrawalDetailResponse>(
-                `/referral/admin/withdrawals/${id}`
+                `/admin/referral/withdrawals/${id}`
             );
         },
 
@@ -135,7 +135,7 @@ export function createApi(fetchFn: typeof fetch) {
             }
         ) {
             return request<ReferralWithdrawalDetailResponse>(
-                `/referral/admin/withdrawals/${id}`,
+                `/admin/referral/withdrawals/${id}`,
                 {
                     method: 'PATCH',
                     body: JSON.stringify(payload)
