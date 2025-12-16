@@ -34,20 +34,20 @@ export function createApi(fetchFn: typeof fetch) {
     return {
         // ===== AUTH ADMIN =====
         adminLogin(payload: { email: string; password: string }) {
-            return request<AdminMe>('/auth/admin/login', {
+            return request<AdminMe>('/admin-auth/login', {
                 method: 'POST',
                 body: JSON.stringify(payload)
             });
         },
 
         adminLogout() {
-            return request<{ success: boolean }>('/auth/admin/logout', {
+            return request<{ success: boolean }>('/admin-auth/logout', {
                 method: 'POST'
             });
         },
 
         getAdminMe() {
-            return request<AdminMe>('/auth/admin/me');
+            return request<AdminMe>('/admin-auth/me');
         },
 
         // ===== REFERRAL ADMIN =====
@@ -117,13 +117,13 @@ export function createApi(fetchFn: typeof fetch) {
 
             const qs = q.toString();
             return request<ReferralWithdrawalAdminListResponse>(
-                `/admin/referral/withdrawals${qs ? `?${qs}` : ''}`
+                `/admin/withdrawal/overview${qs ? `?${qs}` : ''}`
             );
         },
 
         geAdminWithdrawalDetail(id: string) {
             return request<ReferralWithdrawalDetailResponse>(
-                `/admin/referral/withdrawals/${id}`
+                `/admin/withdrawal/${id}`
             );
         },
 
@@ -135,7 +135,7 @@ export function createApi(fetchFn: typeof fetch) {
             }
         ) {
             return request<ReferralWithdrawalDetailResponse>(
-                `/admin/referral/withdrawals/${id}`,
+                `/admin/withdrawal/${id}`,
                 {
                     method: 'PATCH',
                     body: JSON.stringify(payload)
